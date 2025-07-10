@@ -26,3 +26,12 @@ func LoginHandler(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Login failed"})
 	}
 }
+
+/**
+ Given the following, provide me the highest EV action and why:
+ pot: 6bb
+ community cards: 2h, 6h, qh
+ hero (BTN): ac, kh
+ villain (BB): 4h, 5s
+ flop: villain check, hero bet 2bb, villain raise 7bb
+ */
