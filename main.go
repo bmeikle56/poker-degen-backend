@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	gin.SetMode(gin.ReleaseMode)
 	godotenv.Load()
 
 	port := os.Getenv("PORT")
