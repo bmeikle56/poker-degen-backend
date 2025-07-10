@@ -19,5 +19,5 @@ func main() {
 	r := gin.Default()
 
 	r.POST("/login", middleware.AuthMiddleware(), handlers.LoginHandler)
-	r.Run()
+	r.Run(":" + port)
 }
