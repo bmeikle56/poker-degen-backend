@@ -1,10 +1,10 @@
 package main
 
 import (
-    "fmt"
     "net/http"
 		"os"
 		"github.com/joho/godotenv"
+		"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -14,10 +14,28 @@ func main() {
     if port == "" {
         port = "8080"
     }
-    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintln(w, "Hello, Go backend is working!")
+    
+		r := gin.Default()
+
+    r.GET("/", func(c *gin.Context) {
+        c.String(http.StatusOK, "Hello, Gin!")
     })
 
-    fmt.Println("Server running on port", port)
-    http.ListenAndServe(":"+port, nil)
+    r.POST("/chat", func(c *gin.Context) {
+        var json struct {
+            Message string `json:"message"`
+        }
+
+        if err := c.BindJSON(&json); err != nil {
+            c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
+            return
+        }
+
+        // Just echo back the message for now
+        c.JSON(http.StatusOK, gin.H{
+            "reply": "You said: " + json.Message,
+        })
+    })
+
+    r.Run()
 }
