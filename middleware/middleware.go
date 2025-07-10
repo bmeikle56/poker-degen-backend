@@ -16,7 +16,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 
 		authToken := os.Getenv("AUTH_TOKEN")
-		const expectedToken = "Bearer " + authToken
+		var expectedToken = "Bearer " + authToken
 		if authHeader != expectedToken {
 			c.JSON(http.StatusForbidden, gin.H{"error": "Unauthorized"})
 			c.Abort()
