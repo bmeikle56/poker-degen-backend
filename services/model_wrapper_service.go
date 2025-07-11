@@ -36,14 +36,16 @@ func ModelWrapperService(req models.ModelRequest) (string, error) {
 
 	board := req.Board
 
-	userPrompt := "
-    Given the following, provide me the highest EV action and why:
-    pot: 6bb
-    community cards: "+board.CC1+", "+board.CC2+", "+board.CC3+"
-    hero (BTN): "+board.HC1+", "+board.HC2+"
-    villain (BB): "+board.V1C1+", "+board.V1C2+"
-    flop: villain check, hero bet 2bb, villain raise 7bb
-  "
+	userPrompt := fmt.Sprintf(`
+	Given the following, provide me the highest EV action and why:
+	pot: 6bb
+	community cards: %s, %s, %s
+	hero (BTN): %s, %s
+	villain (BB): %s, %s
+	flop: villain check, hero bet 2bb, villain raise 7bb
+	`, board.CC1, board.CC2, board.CC3, board.HC1, board.HC2, board.V1C1, board.V1C2)
+
+
 
 	reqBody := ChatRequest{
 		Model: "gpt-4.1-mini",
