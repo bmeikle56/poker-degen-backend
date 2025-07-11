@@ -34,7 +34,16 @@ func ModelWrapperService(req models.ModelRequest) (string, error) {
 
 	url := "https://api.openai.com/v1/chat/completions"
 
-	userPrompt := "What is the capital of France?"
+	board := req.Board
+
+	userPrompt := "
+    Given the following, provide me the highest EV action and why:
+    pot: 6bb
+    community cards: "+board.CC1+", "+board.CC2+", "+board.CC3+"
+    hero (BTN): "+board.HC1+", "+board.HC2+"
+    villain (BB): "+board.V1C1+", "+board.V1C2+"
+    flop: villain check, hero bet 2bb, villain raise 7bb
+  "
 
 	reqBody := ChatRequest{
 		Model: "gpt-4.1-mini",
@@ -48,7 +57,6 @@ func ModelWrapperService(req models.ModelRequest) (string, error) {
 		panic(err)
 	}
 
-	// Use a different name to avoid overwriting the original `req`
 	httpReq, err := http.NewRequest("POST", url, bytes.NewBuffer(bodyBytes))
 	if err != nil {
 		panic(err)

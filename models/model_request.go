@@ -1,6 +1,6 @@
 package models
 
-type ModelRequest struct {
+type Board struct {
 	CC1 string `json:"cc1"`
 	CC2 string `json:"cc2"`
 	CC3 string `json:"cc3"`
@@ -12,4 +12,8 @@ type ModelRequest struct {
 
 	HC1 string `json:"hc1"`
 	HC2 string `json:"hc2"`
+}
+
+type ModelRequest struct {
+	Board Board `json:"board"`
 }
