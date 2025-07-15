@@ -17,8 +17,11 @@ func LoginHandler(c *gin.Context) {
 	err := services.LoginService(req.Username, req.Password)
 
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Failed to login user",
+			"details": err.Error(),
+		})
 	} else {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
 	}
 }
