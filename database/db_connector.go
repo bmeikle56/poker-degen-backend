@@ -9,25 +9,27 @@ import (
 )
 
 func ConnectDB() (*sql.DB, error) {
-	connStr := func() string {
-		user := os.Getenv("DB_USER")
-		password := os.Getenv("DB_PASSWORD")
-		host := os.Getenv("DB_HOST")
-		port := os.Getenv("DB_PORT")
-		dbname := os.Getenv("DB_NAME")
-		sslmode := os.Getenv("DB_SSLMODE")
+	// connStr := func() string {
+	// 	user := os.Getenv("DB_USER")
+	// 	password := os.Getenv("DB_PASSWORD")
+	// 	host := os.Getenv("DB_HOST")
+	// 	port := os.Getenv("DB_PORT")
+	// 	dbname := os.Getenv("DB_NAME")
+	// 	sslmode := os.Getenv("DB_SSLMODE")
 
-		if sslmode == "" {
-			sslmode = "require"
-		}
+	// 	if sslmode == "" {
+	// 		sslmode = "require"
+	// 	}
 
-		return fmt.Sprintf(
-			"postgresql://%s:%s@%s:%s/%s?sslmode=%s",
-			user, password, host, port, dbname, sslmode,
-		)
-	}
+	// 	return fmt.Sprintf(
+	// 		"postgresql://%s:%s@%s:%s/%s?sslmode=%s",
+	// 		user, password, host, port, dbname, sslmode,
+	// 	)
+	// }
 
-	db, err := sql.Open("postgres", connStr())
+	connStr :=  os.Getenv("DB_URL")
+
+	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		return nil, fmt.Errorf("sql.Open error: %w", err)
 	}
