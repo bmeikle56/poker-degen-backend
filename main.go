@@ -20,6 +20,7 @@ func main() {
 	r := gin.Default()
 
 	r.POST("/login", middleware.AuthMiddleware(), handlers.LoginHandler)
+	r.POST("/signup", middleware.AuthMiddleware(), handlers.SignupHandler)
 	r.POST("/modelWrapper", middleware.AuthMiddleware(), handlers.ModelWrapperHandler)
 	r.Run(":" + port)
 }
