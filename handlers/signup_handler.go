@@ -14,11 +14,11 @@ func SignupHandler(c *gin.Context) {
 		return
 	}
 	
-	success := services.SignupService(req.Username, req.Password)
+	err := services.SignupService(req.Username, req.Password)
 
-	if success {
+	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"message": "Sign up successful"})
 	} else {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Sign up failed"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 	}
 }
