@@ -36,14 +36,33 @@ func InsertUser(db *sql.DB, username string, password string, diamonds int) erro
 	return nil
 }
 
-func FetchUser(db *sql.DB, username string, password string) (*models.User, error) {
+func FetchPasswordForUser(db *sql.DB, username string) (string, error) {
+	query := `
+		SELECT password
+		FROM users
+		WHERE username = $1
+	`
+
+	var hashedPassword string
+	err := db.QueryRow(query, username).Scan(&hashedPassword)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return "", fmt.Errorf("user not found")
+		}
+		return "", fmt.Errorf("query error: %w", err)
+	}
+
+	return hashedPassword, nil
+}
+
+func FetchUser(db *sql.DB, username string) (*models.User, error) {
 	query := `
 		SELECT id, username, password, diamonds
 		FROM users
-		WHERE username = $1 and password = $2
+		WHERE username = $1
 	`
 
-	row := db.QueryRow(query, username, password)
+	row := db.QueryRow(query, username)
 
 	var user models.User
 	err := row.Scan(&user.ID, &user.Username, &user.Password, &user.Diamonds)
