@@ -17,3 +17,10 @@ type Board struct {
 type ModelRequest struct {
 	Board Board `json:"board"`
 }
+
+type User struct {
+	ID       string
+	Username string
+	Password string
+	Diamonds int
+}

@@ -1,0 +1,57 @@
+package database
+
+import (
+	"database/sql"
+	_ "github.com/lib/pq"
+	"fmt"
+	"poker-degen/models"
+)
+
+const connStr = "postgres://youruser:yourpass@yourhost:5432/yourdb?sslmode=require"
+
+func ConnectDB() (*sql.DB, error) {
+	db, err := sql.Open("postgres", connStr)
+	if err != nil {
+		return nil, fmt.Errorf("sql.Open error: %w", err)
+	}
+
+	if err := db.Ping(); err != nil {
+		return nil, fmt.Errorf("db.Ping error: %w", err)
+	}
+
+	return db, nil
+}
+
+func InsertUser(db *sql.DB, username string, password string, diamonds int) error {
+	query := `
+		INSERT INTO users (username, password, diamonds)
+		VALUES ($1, $2, $3)
+	`
+	_, err := db.Exec(query, username, password, diamonds)
+	if err != nil {
+		return fmt.Errorf("InsertUser error: %w", err)
+	}
+
+	return nil
+}
+
+func FetchUser(db *sql.DB, username string, password string) (*models.User, error) {
+	query := `
+		SELECT id, username, password, diamonds
+		FROM users
+		WHERE username = $1 and password = $2
+	`
+
+	row := db.QueryRow(query, username, password)
+
+	var user models.User
+	err := row.Scan(&user.ID, &user.Username, &user.Password, &user.Diamonds)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("user not found")
+		}
+		return nil, fmt.Errorf("query error: %w", err)
+	}
+
+	return &user, nil
+}
