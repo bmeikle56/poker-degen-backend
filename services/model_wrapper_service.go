@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 	"fmt"
-	"poker-degen/models"
+	"pokerdegen/models"
 )
 
 type ChatMessage struct {

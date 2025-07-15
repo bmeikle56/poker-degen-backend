@@ -4,8 +4,8 @@ import (
 	"os"
 	"github.com/joho/godotenv"
 	"github.com/gin-gonic/gin"
-	"poker-degen/handlers"
-	"poker-degen/middleware"
+	"pokerdegen/handlers"
+	"pokerdegen/middleware"
 )
 
 func main() {

@@ -1,7 +1,7 @@
 package services
 
 import (
-	"poker-degen/database"
+	"pokerdegen/database"
 	"golang.org/x/crypto/bcrypt"
 )
 

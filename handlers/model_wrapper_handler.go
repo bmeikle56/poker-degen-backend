@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 	"github.com/gin-gonic/gin"
-	"poker-degen/services"
-	"poker-degen/models"
+	"pokerdegen/services"
+	"pokerdegen/models"
 )
 
 func ModelWrapperHandler(c *gin.Context) {

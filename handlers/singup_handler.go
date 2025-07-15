@@ -7,18 +7,18 @@ import (
 	"pokerdegen/models"
 )
 
-func LoginHandler(c *gin.Context) {
+func SignupHandler(c *gin.Context) {
 	var req models.AuthRequest
 	if err := c.BindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
 		return
 	}
 	
-	success := services.LoginService(req.Username, req.Password)
+	success := services.SignupService(req.Username, req.Password)
 
 	if success {
-		c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
+		c.JSON(http.StatusOK, gin.H{"message": "Sign up successful"})
 	} else {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Login failed"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Sign up failed"})
 	}
 }

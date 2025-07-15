@@ -24,3 +24,8 @@ type User struct {
 	Password string
 	Diamonds int
 }
+
+type AuthRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}

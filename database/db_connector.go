@@ -4,13 +4,30 @@ import (
 	"database/sql"
 	_ "github.com/lib/pq"
 	"fmt"
-	"poker-degen/models"
+	"os"
+	"pokerdegen/models"
 )
 
-const connStr = "postgres://youruser:yourpass@yourhost:5432/yourdb?sslmode=require"
-
 func ConnectDB() (*sql.DB, error) {
-	db, err := sql.Open("postgres", connStr)
+	connStr := func() string {
+		user := os.Getenv("DB_USER")
+		password := os.Getenv("DB_PASSWORD")
+		host := os.Getenv("DB_HOST")
+		port := os.Getenv("DB_PORT")
+		dbname := os.Getenv("DB_NAME")
+		sslmode := os.Getenv("DB_SSLMODE")
+
+		if sslmode == "" {
+			sslmode = "require"
+		}
+
+		return fmt.Sprintf(
+			"postgresql://%s:%s@%s:%s/%s?sslmode=%s",
+			user, password, host, port, dbname, sslmode,
+		)
+	}
+
+	db, err := sql.Open("postgres", connStr())
 	if err != nil {
 		return nil, fmt.Errorf("sql.Open error: %w", err)
 	}

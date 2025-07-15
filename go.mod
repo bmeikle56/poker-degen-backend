@@ -1,4 +1,4 @@
-module poker-degen
+module pokerdegen
 
 go 1.24.5
 
