@@ -70,11 +70,23 @@ Respond in the format: [Check/Bet <amount>/Fold],[Villain's range as in integer 
 	Given the following, provide me the highest EV action and why:
 	pot: %sBB
 	community cards: %s, %s, %s
-	hero (BTN): %s, %s
-	villain (BB): %s, %s
+	hero (%s): %s, %s
+	villain (%s, %s): %s, %s
 	flop: villain check
 	Respond in the format: [Check/Bet/Fold]; [Villain's equity as decimal]; [Hero's equity as decimal]; [Brief explanation]
-	`, board.POT, board.CC1, board.CC2, board.CC3, board.HC1, board.HC2, board.V1C1, board.V1C2)
+	`, 
+	board.POT, 
+	board.CC1, 
+	board.CC2, 
+	board.CC3, 
+	board.HP, 
+	board.HC1, 
+	board.HC2, 
+	board.VP, 
+	board.VPT, 
+	board.V1C1, 
+	board.V1C2,
+	)
 
 	reqBody := ChatRequest{
 		Model: "gpt-4o",
