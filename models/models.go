@@ -1,8 +1,6 @@
 package models
 
 type Board struct {
-	POT int `json:"pot"`
-
 	CC1 string `json:"cc1"`
 	CC2 string `json:"cc2"`
 	CC3 string `json:"cc3"`
@@ -14,6 +12,8 @@ type Board struct {
 
 	HC1 string `json:"hc1"`
 	HC2 string `json:"hc2"`
+
+	POT string `json:"pot"`
 }
 
 type ModelRequest struct {

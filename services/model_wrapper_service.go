@@ -67,14 +67,13 @@ Respond in the format: [Check/Bet <amount>/Fold],[Villain's range as in integer 
 
 	userPrompt := fmt.Sprintf(`
 	Given the following, provide me the highest EV action and why:
-	pot: %d
+	pot: %s
 	community cards: %s, %s, %s
 	hero (BTN): %s, %s
 	villain (BB): %s, %s
 	flop: villain check
 	Respond in the format: [Check/Bet/Fold], [Villain's range 0.0-1.0], [Hero's range 0.0-1.0], [Brief explanation]
 	`, board.POT, board.CC1, board.CC2, board.CC3, board.HC1, board.HC2, board.V1C1, board.V1C2)
-
 
 
 	reqBody := ChatRequest{
