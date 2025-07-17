@@ -73,7 +73,7 @@ Respond in the format: [Check/Bet <amount>/Fold],[Villain's range as in integer 
 	hero (BTN): %s, %s
 	villain (BB): %s, %s
 	flop: villain check
-	Respond in the format: [Check/Bet/Fold]; [Check/Bet/Fold]; [Villain's equity as decimal]; [Hero's equity as decimal]; [Brief explanation]
+	Respond in the format: [Check/Bet/Fold]; [Villain's equity as decimal]; [Hero's equity as decimal]; [Brief explanation]
 	`, board.POT, board.CC1, board.CC2, board.CC3, board.HC1, board.HC2, board.V1C1, board.V1C2)
 
 	reqBody := ChatRequest{
