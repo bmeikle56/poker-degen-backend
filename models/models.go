@@ -12,6 +12,8 @@ type Board struct {
 
 	HC1 string `json:"hc1"`
 	HC2 string `json:"hc2"`
+
+	POT string `json:"pot"`
 }
 
 type ModelRequest struct {
