@@ -77,7 +77,7 @@ Respond in the format: [Check/Bet <amount>/Fold],[Villain's range as in integer 
 	`, board.POT, board.CC1, board.CC2, board.CC3, board.HC1, board.HC2, board.V1C1, board.V1C2)
 
 	reqBody := ChatRequest{
-		Model: "gpt-4.1-mini",
+		Model: "gpt-4.5",
 		Messages: []ChatMessage{
 			{Role: "user", Content: userPrompt},
 		},
