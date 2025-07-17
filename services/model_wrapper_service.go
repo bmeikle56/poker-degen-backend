@@ -73,7 +73,7 @@ Respond in the format: [Check/Bet <amount>/Fold],[Villain's range as in integer 
 	hero (BTN): %s, %s
 	villain (BB): %s, %s
 	flop: villain check
-	Respond in the format: [Check/Bet/Fold], [Villain's range 0.0-1.0], [Hero's range 0.0-1.0], [Brief explanation]
+	Respond in the format: [Check/Bet/Fold]; [Villain's range 0.0-1.0]; [Hero's range 0.0-1.0]; [Brief explanation]
 	`, board.POT, board.CC1, board.CC2, board.CC3, board.HC1, board.HC2, board.V1C1, board.V1C2)
 
 	reqBody := ChatRequest{
@@ -113,5 +113,5 @@ Respond in the format: [Check/Bet <amount>/Fold],[Villain's range as in integer 
 	if err := json.Unmarshal(respBody, &chatResp); err != nil {
 		panic(err)
 	}
-	return strings.Split(chatResp.Choices[0].Message.Content, ","), nil
+	return strings.Split(chatResp.Choices[0].Message.Content, ";"), nil
 }
