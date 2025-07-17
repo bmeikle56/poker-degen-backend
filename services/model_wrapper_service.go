@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"fmt"
+	"strings"
 	"pokerdegen/models"
 )
 
@@ -26,10 +27,10 @@ type ChatResponse struct {
 	} `json:"choices"`
 }
 
-func ModelWrapperService(req models.ModelRequest) (string, error) {
+func ModelWrapperService(req models.ModelRequest) ([]string, error) {
 	apiKey := os.Getenv("OPENAI_API_KEY")
 	if apiKey == "" {
-		return "", fmt.Errorf("OPENAI_API_KEY cannot be empty")
+		return []string{}, fmt.Errorf("OPENAI_API_KEY cannot be empty")
 	}
 
 	url := "https://api.openai.com/v1/chat/completions"
@@ -105,12 +106,12 @@ Respond in the format: [Check/Bet <amount>/Fold],[Villain's range as in integer 
 	respBody, _ := ioutil.ReadAll(resp.Body)
 
 	if resp.StatusCode != 200 {
-		return "", fmt.Errorf("StatusCode "+fmt.Sprintf("%d", resp.StatusCode))
+		return []string{}, fmt.Errorf("StatusCode "+fmt.Sprintf("%d", resp.StatusCode))
 	}
 
 	var chatResp ChatResponse
 	if err := json.Unmarshal(respBody, &chatResp); err != nil {
 		panic(err)
 	}
-	return chatResp.Choices[0].Message.Content, nil
+	return strings.Split(chatResp.Choices[0].Message.Content, ","), nil
 }
