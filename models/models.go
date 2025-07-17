@@ -1,6 +1,8 @@
 package models
 
 type Board struct {
+	POT int `json:"pot"`
+
 	CC1 string `json:"cc1"`
 	CC2 string `json:"cc2"`
 	CC3 string `json:"cc3"`
