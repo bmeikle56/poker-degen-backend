@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"os"
 	"github.com/gin-gonic/gin"
 	"pokerdegen/services"
 	"pokerdegen/models"
@@ -22,6 +23,10 @@ func SignupHandler(c *gin.Context) {
 			"details": err.Error(),
 		})
 	} else {
-		c.JSON(http.StatusOK, gin.H{"message": "Sign up successful"})
+		authToken := os.Getenv("AUTH_TOKEN")
+		c.JSON(http.StatusOK, gin.H{
+			"token": authToken,
+			"message": "Sign up successful",
+		})
 	}
 }
