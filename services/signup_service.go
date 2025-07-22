@@ -19,7 +19,7 @@ func SignupService(username string, password string) error {
 	if err != nil {
 		return err
 	} else if userExists {
-		return fmt.Errorf("user already exists: %s", username)
+		return fmt.Errorf("user already exists")
 	}
 	err = database.InsertUser(db, username, string(hashed), 100)
 	return err
