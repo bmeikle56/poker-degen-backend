@@ -11,7 +11,7 @@ func ModelWrapperHandler(c *gin.Context) {
 	var req models.ModelRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"response": "Invalid input to model wrapper service",
+			"response": "invalid input to model wrapper service",
 			"error": err.Error(),
 		})
 		return
@@ -21,7 +21,7 @@ func ModelWrapperHandler(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"response": "Failed to call model wrapper",
+			"response": "failed to call model wrapper",
 			"error": err.Error(),
 		})
 	} else {

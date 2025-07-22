@@ -118,7 +118,7 @@ Respond in the format: [Check/Bet <amount>/Fold],[Villain's range as in integer 
 	respBody, _ := ioutil.ReadAll(resp.Body)
 
 	if resp.StatusCode != 200 {
-		return []string{}, fmt.Errorf("%s", "StatusCode "+fmt.Sprintf("%d", resp.StatusCode))
+		return []string{}, fmt.Errorf("%s", "status code "+fmt.Sprintf("%d", resp.StatusCode))
 	}
 
 	var chatResp ChatResponse

@@ -11,7 +11,9 @@ import (
 func LoginHandler(c *gin.Context) {
 	var req models.AuthRequest
 	if err := c.BindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "invalid JSON",
+		})
 		return
 	}
 	
@@ -19,13 +21,13 @@ func LoginHandler(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"response": "Failed to login user",
+			"response": "failed to login user",
 			"error": err.Error(),
 		})
 	} else {
 		authToken := os.Getenv("AUTH_TOKEN")
 		c.JSON(http.StatusOK, gin.H{
-			"response": "Login successful",
+			"response": "login successful",
 			"token": authToken,
 		})
 	}
