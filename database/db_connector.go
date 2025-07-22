@@ -23,6 +23,17 @@ func ConnectDB() (*sql.DB, error) {
 	return db, nil
 }
 
+func DoesUserExist(db *sql.DB, username string) (bool, error) {
+	var exists bool
+	query := `SELECT EXISTS(SELECT 1 FROM users WHERE email=$1)`
+
+	err := db.QueryRow(query, username).Scan(&exists)
+	if err != nil {
+		return false, err
+	}
+	return exists, nil
+}
+
 func InsertUser(db *sql.DB, username string, password string, diamonds int) error {
 	query := `
 		INSERT INTO users (username, password, diamonds)

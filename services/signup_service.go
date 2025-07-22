@@ -3,6 +3,7 @@ package services
 import (
 	"pokerdegen/database"
 	"golang.org/x/crypto/bcrypt"
+	"fmt"
 )
 
 func SignupService(username string, password string) error {
@@ -13,6 +14,12 @@ func SignupService(username string, password string) error {
 	db, err := database.ConnectDB()
 	if err != nil {
 		return err
+	}
+	userExists, err := database.DoesUserExist(db, username)
+	if err != nil {
+		return err
+	} else if userExists {
+		return fmt.Errorf("user already exists: %s", username)
 	}
 	err = database.InsertUser(db, username, string(hashed), 100)
 	return err
