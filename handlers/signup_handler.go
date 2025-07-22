@@ -19,14 +19,14 @@ func SignupHandler(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": "Failed to signup user",
-			"details": err.Error(),
+			"response": "Failed to signup user",
+			"error": err.Error(),
 		})
 	} else {
 		authToken := os.Getenv("AUTH_TOKEN")
 		c.JSON(http.StatusOK, gin.H{
+			"response": "Sign up successful",
 			"token": authToken,
-			"message": "Sign up successful",
 		})
 	}
 }
