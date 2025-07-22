@@ -23,7 +23,7 @@ func ConnectDB() (*sql.DB, error) {
 	return db, nil
 }
 
-func DoesUserExist(db *sql.DB, username string) (bool, error) {
+func CheckIfUserExists(db *sql.DB, username string) (bool, error) {
 	var exists bool
 	query := `SELECT EXISTS(SELECT 1 FROM users WHERE email=$1)`
 

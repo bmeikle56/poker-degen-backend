@@ -15,7 +15,7 @@ func SignupService(username string, password string) error {
 	if err != nil {
 		return err
 	}
-	userExists, err := database.DoesUserExist(db, username)
+	userExists, err := database.CheckIfUserExists(db, username)
 	if err != nil {
 		return err
 	} else if userExists {
