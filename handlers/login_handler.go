@@ -19,14 +19,14 @@ func LoginHandler(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": "Failed to login user",
-			"details": err.Error(),
+			"response": "Failed to login user",
+			"error": err.Error(),
 		})
 	} else {
 		authToken := os.Getenv("AUTH_TOKEN")
 		c.JSON(http.StatusOK, gin.H{
+			"response": "Login successful",
 			"token": authToken,
-			"message": "Login successful",
 		})
 	}
 }
