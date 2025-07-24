@@ -3,6 +3,7 @@ package services
 import (
 	"pokerdegen/database"
 	"golang.org/x/crypto/bcrypt"
+	"fmt"
 )
 
 func LoginService(username string, password string) error {
@@ -16,7 +17,7 @@ func LoginService(username string, password string) error {
 	}
 	err = comparePassword(hashedPassword, password)
 	if err != nil {
-		return err
+		return fmt.Errorf("incorrect password")
 	}
 	_, err = database.FetchUser(db, username)
 	return err
