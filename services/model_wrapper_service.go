@@ -3,7 +3,7 @@ package services
 import (
 	"bytes"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"fmt"
@@ -115,7 +115,7 @@ Respond in the format: [Check/Bet <amount>/Fold],[Villain's range as in integer 
 	}
 	defer resp.Body.Close()
 
-	respBody, _ := ioutil.ReadAll(resp.Body)
+	respBody, _ := io.ReadAll(resp.Body)
 
 	if resp.StatusCode != 200 {
 		return []string{}, fmt.Errorf("%s", "status code "+fmt.Sprintf("%d", resp.StatusCode))
