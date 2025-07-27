@@ -21,6 +21,7 @@ func main() {
 
 	r.POST("/login", handlers.LoginHandler)
 	r.POST("/signup", handlers.SignupHandler)
+	r.POST("/deleteAccount", handlers.DeleteAccountHandler)
 	r.POST("/modelWrapper", middleware.AuthMiddleware(), handlers.ModelWrapperHandler)
 	r.Run(":" + port)
 }

@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	"regexp"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func ValidatePassword(password string) error {
@@ -23,4 +24,8 @@ func ValidatePassword(password string) error {
 		return fmt.Errorf("password must have a digit")
 	}
 	return nil
+}
+
+func ComparePassword(hashedPassword string, password string) error {
+	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 }

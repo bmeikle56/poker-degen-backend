@@ -2,38 +2,28 @@ package services
 
 import (
 	"pokerdegen/database"
-	"golang.org/x/crypto/bcrypt"
 	"fmt"
 	"pokerdegen/utils"
 )
 
 func DeleteAccountService(username string, password string) error {
-	// hash the user's password
-	hashed, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-	if err != nil {
-		return err
-	}
-
-	// connect to the database
+	// connect to db
 	db, err := database.ConnectDB()
 	if err != nil {
 		return err
 	}
 
-	// now make sure the user doesn't already exist
-	userExists, err := database.CheckIfUserExists(db, username)
-	if err != nil {
-		return err
-	} else if userExists {
-		return fmt.Errorf("user already exists")
-	}
-
-	// now we need to make sure username and password are valid + strong
-	err = utils.ValidatePassword(password)
+	// validate username + password
+	hashedPassword, err := database.FetchPasswordForUser(db, username)
 	if err != nil {
 		return err
 	}
+	err = utils.ComparePassword(hashedPassword, password)
+	if err != nil {
+		return fmt.Errorf("incorrect password")
+	}
 
-	err = database.InsertUser(db, username, string(hashed), 100)
+	// now we know username + password are valid, delete account
+	err = database.DeleteUser(db, username)
 	return err
 }
