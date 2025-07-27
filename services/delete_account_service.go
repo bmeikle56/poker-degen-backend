@@ -7,7 +7,7 @@ import (
 	"pokerdegen/utils"
 )
 
-func SignupService(username string, password string) error {
+func DeleteAccountService(username string, password string) error {
 	// hash the user's password
 	hashed, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {

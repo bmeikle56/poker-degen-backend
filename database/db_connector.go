@@ -47,6 +47,19 @@ func InsertUser(db *sql.DB, username string, password string, diamonds int) erro
 	return nil
 }
 
+func DeleteUser(db *sql.DB, username string) error {
+	query := `
+		DELETE FROM users
+		WHERE username = $1
+	`
+	_, err := db.Exec(query, username)
+	if err != nil {
+		return fmt.Errorf("DeleteUser error: %w", err)
+	}
+
+	return nil
+}
+
 func FetchPasswordForUser(db *sql.DB, username string) (string, error) {
 	query := `
 		SELECT password
