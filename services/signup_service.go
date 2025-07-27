@@ -4,7 +4,7 @@ import (
 	"pokerdegen/database"
 	"golang.org/x/crypto/bcrypt"
 	"fmt"
-	"regexp"
+	"pokerdegen/utils"
 )
 
 func SignupService(username string, password string) error {
@@ -29,31 +29,11 @@ func SignupService(username string, password string) error {
 	}
 
 	// now we need to make sure username and password are valid + strong
-	err = validatePassword(password)
+	err = utils.ValidatePassword(password)
 	if err != nil {
 		return err
 	}
 
 	err = database.InsertUser(db, username, string(hashed), 100)
 	return err
-}
-
-func validatePassword(password string) error {
-	// password must be 8+ characters
-	if len(password) < 8 {
-		return fmt.Errorf("password must be 8+ characters")
-	}
-
-	// password must contain a letter
-	hasLetter := regexp.MustCompile(`[A-Za-z]`).MatchString
-	
-	// password must contain a number
-	hasDigit := regexp.MustCompile(`\d`).MatchString
-
-	if !hasLetter(password) {
-		return fmt.Errorf("password must have a letter")
-	} else if !hasDigit(password) {
-		return fmt.Errorf("password must have a digit")
-	}
-	return nil
 }

@@ -6,11 +6,14 @@ import (
 	"pokerdegen/utils"
 )
 
-func LoginService(username string, password string) error {
+func DeleteAccountService(username string, password string) error {
+	// connect to db
 	db, err := database.ConnectDB()
 	if err != nil {
 		return err
 	}
+
+	// validate username + password
 	hashedPassword, err := database.FetchPasswordForUser(db, username)
 	if err != nil {
 		return err
@@ -19,6 +22,8 @@ func LoginService(username string, password string) error {
 	if err != nil {
 		return fmt.Errorf("incorrect password")
 	}
-	_, err = database.FetchUser(db, username)
+
+	// now we know username + password are valid, delete account
+	err = database.DeleteUser(db, username)
 	return err
 }
