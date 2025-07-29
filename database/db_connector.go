@@ -18,7 +18,8 @@ func GetDB() *sql.DB {
 func ConnectDB() error {
 	url :=  os.Getenv("DB_URL")
 
-	db, err := sql.Open("postgres", url)
+	var err error
+	db, err = sql.Open("postgres", url)
 	if err != nil {
 		return fmt.Errorf("sql.Open error: %w", err)
 	}
