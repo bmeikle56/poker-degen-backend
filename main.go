@@ -20,6 +20,12 @@ func main() {
 		log.Fatalf("failed to connect to database: %v", err)
 	}
 
+	defer func() {
+		if err := database.GetDB().Close(); err != nil {
+			log.Printf("error closing DB: %v", err)
+		}
+	}()
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
