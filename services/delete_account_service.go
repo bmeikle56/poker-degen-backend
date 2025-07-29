@@ -8,10 +8,7 @@ import (
 
 func DeleteAccountService(username string, password string) error {
 	// connect to db
-	db, err := database.ConnectDB()
-	if err != nil {
-		return err
-	}
+	db := database.GetDB()
 
 	// validate username + password
 	hashedPassword, err := database.FetchPasswordForUser(db, username)
