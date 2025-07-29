@@ -5,12 +5,20 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/gin-gonic/gin"
 	"pokerdegen/handlers"
+	"pokerdegen/database"
 	"pokerdegen/middleware"
+	"log"
+	_ "github.com/lib/pq"
 )
 
 func main() {
 	gin.SetMode(gin.ReleaseMode)
 	godotenv.Load()
+
+	err := database.ConnectDB()
+	if err != nil {
+		log.Fatalf("failed to connect to database: %v", err)
+	}
 
 	port := os.Getenv("PORT")
 	if port == "" {
